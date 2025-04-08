@@ -4,6 +4,7 @@
 /public/build
 /public/hot
 /public/storage
+/public/vendor
 /storage/*.key
 /storage/pail
 /vendor
@@ -22,3 +23,4 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+laravel
