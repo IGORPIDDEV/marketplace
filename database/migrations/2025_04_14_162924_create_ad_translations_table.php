@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('ad_translations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('ad_id')->constrained()->cascadeOnDelete();
+            $table->string('locale', 5);
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->unique(['ad_id', 'locale']);
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('ad_translations');
     }
 };

@@ -11,20 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ads', function (Blueprint $table) {
+        Schema::create('category_translations', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
-
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->decimal('price', 10, 2)->nullable();
-            $table->string('location')->nullable();
-
-            $table->boolean('is_published')->default(false);
-            $table->timestamp('archived_at')->nullable();
-
+            $table->string('locale', 5);
+            $table->string('name');
+            $table->unique(['category_id', 'locale']);
             $table->timestamps();
         });
     }
@@ -34,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ads');
+        Schema::dropIfExists('category_translations');
     }
 };

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Category;
+use App\Models\CategoryTranslation;
 
 class CategorySeeder extends Seeder
 {
@@ -13,18 +14,40 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $vehicles = Category::firstOrCreate(['name' => 'Vehicles']);
-        $electronics = Category::firstOrCreate(['name' => 'Electronics']);
-        $furniture = Category::firstOrCreate(['name' => 'Furniture']);
+        $categories = [
+            [
+                'slug' => 'vehicles',
+                'translations' => [
+                    'en' => 'Vehicles',
+                    'uk' => 'Транспорт',
+                ],
+            ],
+            [
+                'slug' => 'electronics',
+                'translations' => [
+                    'en' => 'Electronics',
+                    'uk' => 'Електроніка',
+                ],
+            ],
+            [
+                'slug' => 'furniture',
+                'translations' => [
+                    'en' => 'Furniture',
+                    'uk' => 'Меблі',
+                ],
+            ],
+        ];
 
-        Category::firstOrCreate([
-            'name' => 'Cars',
-            'parent_id' => $vehicles->id,
-        ]);
+        foreach ($categories as $data) {
+            $category = Category::create(['slug' => $data['slug']]);
 
-        Category::firstOrCreate([
-            'name' => 'Motorcycles',
-            'parent_id' => $vehicles->id,
-        ]);
+            foreach ($data['translations'] as $locale => $name) {
+                CategoryTranslation::create([
+                    'category_id' => $category->id,
+                    'locale' => $locale,
+                    'name' => $name,
+                ]);
+            }
+        }
     }
 }

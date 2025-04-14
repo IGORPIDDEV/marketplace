@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attributes', function (Blueprint $table) {
+        Schema::create('attribute_translations', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->string('unit')->nullable();
+            $table->foreignId('attribute_id')->constrained()->cascadeOnDelete();
+            $table->string('locale', 5);
+            $table->string('name');
+            $table->unique(['attribute_id', 'locale']);
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attributes');
+        Schema::dropIfExists('attribute_translations');
     }
 };

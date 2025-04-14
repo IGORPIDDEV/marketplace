@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Attribute;
+use App\Models\AttributeTranslation;
 
 class AttributeSeeder extends Seeder
 {
@@ -13,24 +14,42 @@ class AttributeSeeder extends Seeder
      */
     public function run(): void
     {
-        Attribute::firstOrCreate([
-            'name' => 'brand',
-            'type' => 'string',
-        ]);
+        $attributes = [
+            [
+                'type' => 'string',
+                'translations' => [
+                    'en' => 'Brand',
+                    'uk' => 'Бренд',
+                ],
+            ],
+            [
+                'type' => 'number',
+                'translations' => [
+                    'en' => 'Year',
+                    'uk' => 'Рік',
+                ],
+            ],
+            [
+                'type' => 'select',
+                'translations' => [
+                    'en' => 'Fuel Type',
+                    'uk' => 'Тип пального',
+                ],
+            ],
+        ];
 
-        Attribute::firstOrCreate([
-            'name' => 'model',
-            'type' => 'string',
-        ]);
+        foreach ($attributes as $data) {
+            $attribute = Attribute::create([
+                'type' => $data['type'],
+            ]);
 
-        Attribute::firstOrCreate([
-            'name' => 'year',
-            'type' => 'number',
-        ]);
-
-        Attribute::firstOrCreate([
-            'name' => 'fuel',
-            'type' => 'select',
-        ]);
+            foreach ($data['translations'] as $locale => $name) {
+                AttributeTranslation::create([
+                    'attribute_id' => $attribute->id,
+                    'locale' => $locale,
+                    'name' => $name,
+                ]);
+            }
+        }
     }
 }
