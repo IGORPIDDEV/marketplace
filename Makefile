@@ -7,7 +7,7 @@ down:
 restart:
 	docker-compose down && docker-compose up -d --build
 
-artisan:
+artisan-cmd:
 	docker exec -it laravel_app php artisan $(cmd)
 
 composer:
