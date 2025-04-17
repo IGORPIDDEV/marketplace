@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\DTO\Ad\AdData;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Ad\StoreAdRequest;
-use App\Http\Requests\Ad\UpdateAdRequest;
+use App\Http\Requests\Api\Ad\StoreAdRequest;
+use App\Http\Requests\Api\Ad\UpdateAdRequest;
 use App\Http\Resources\AdResource;
 use App\Models\Ad;
 use App\Services\Ad\AdService;
