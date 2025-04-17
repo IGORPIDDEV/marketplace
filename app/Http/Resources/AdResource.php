@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
@@ -16,13 +17,14 @@ class AdResource extends JsonResource
             'price' => $this->price,
             'location' => $this->location,
             'category' => [
-                'id' => $this->category_id,
+                'id' => $this->category?->id,
                 'name' => $this->category?->translation()?->name,
             ],
             'attributes' => $this->attributes->map(fn ($attr) => [
+                'id' => $attr->attribute_id,
                 'name' => $attr->attribute?->translation()?->name,
                 'value' => $attr->value,
-            ]),
+            ])->values(),
             'created_at' => $this->created_at,
         ];
     }

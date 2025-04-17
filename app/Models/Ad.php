@@ -9,6 +9,14 @@ class Ad extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'category_id',
+        'price',
+        'location',
+        'is_published',
+    ];
+
     public function translations()
     {
         return $this->hasMany(AdTranslation::class);
