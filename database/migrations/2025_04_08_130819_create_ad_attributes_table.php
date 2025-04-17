@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('ad_attributes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('ad_id')->constrained('ads')->cascadeOnDelete();
+            $table->foreignId('attribute_id')->constrained()->cascadeOnDelete();
+            $table->text('value');
             $table->timestamps();
         });
+
     }
 
     /**

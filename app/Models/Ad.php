@@ -20,4 +20,11 @@ class Ad extends Model
             ->where('locale', $locale ?? app()->getLocale())
             ->first();
     }
+
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
+    public function attributes() {
+        return $this->hasMany(AdAttribute::class);
+    }
 }
