@@ -17,7 +17,7 @@ export default defineConfig({
     host: '0.0.0.0',
     proxy: {
       '/api': {
-        target: 'http://laravel_nginx',
+        target: 'http://localhost:8000',
         changeOrigin: true,
         secure: false,
       },
@@ -25,6 +25,10 @@ export default defineConfig({
     strictPort: true,
     hmr: {
       host: 'localhost',
+    },
+    watch: {
+      usePolling: true,
+      interval: 100,
     },
   },
   plugins: [
